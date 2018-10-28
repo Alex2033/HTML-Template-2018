@@ -1,46 +1,25 @@
-extends ../layouts/layout.pug
+doctype html
+html(lang='ru')
+	head
+		title Template
+		include ../modules/head
 
-block variables
-	-var title = 'Главная'
+	body
 
-block content
-	include ../sections/header.pug
-	include ../sections/header-navigation.pug
+		// begin wrapper
+		.wrapper
 
-	.container
-		.row
-			.col-md-3
-				+product-card('apple-tv.jpg', 'Apple TV 32GB', 'Black', '$49.99')
-			.col-md-3
-				+product-card('watch.jpg', 'Pebble Time', 'Red', '$29.99')
-			
-			.col-md-6
-				+product-card-big('jbl-bg.jpg', 'JBL Charge 2+', 'Black', '$39.99', '12 Gb')
+			include ../modules/header
 
-				//- .product-card-big
-				//- 	.product-card-big__img(style="background-image: url('../img/products/jbl-bg.jpg')") 
-				//- 		.product-card-big__price $39.99
-						
-				//- 	.product-card-big-content
-				//- 		div
-				//- 			.product-card-big__title 
-				//- 			.product-card-big__color Black
-				//- 		.button-group
-				//- 			.button 
-				//- 			.button Buy Now
-			
-			.col-md-3
-				+product-card('zendure.jpg', 'Zendure 4-Port USB', 'Black', '$39.99')
-			.col-md-3
-				+product-card('analyzer.jpg', 'Withings Smart Body Analyzer ws-50', 'Black', '$49.99')
-			.col-md-3
-				+product-card('ollo.jpg', 'Ollo Clip New', 'Silver', '$19.99')
-			.col-md-3
-				+product-card('tracker.jpg', 'Fitbit Charge HR Heart Rate and Activity Tracker', 'Black', '$19.99')
-
-						
-
-	 
+			// begin main-content
+			main.main-content
 
 
+			// end main-content
 
+		// end wrapper
+		include ../modules/footer
+
+
+		// scripts 
+		include ../modules/scripts
