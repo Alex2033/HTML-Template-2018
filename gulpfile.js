@@ -20,13 +20,13 @@ gulp.task('server',  function() {
     	server: {baseDir: './build/'}
     });
 
-    gulp.watch('src/pug/**/*.*', ['pug']);
-    gulp.watch('src/less/**/*.less', ['less']);
+    gulp.watch('src/pug/**/*.*', gulp.parallel('pug'));
+    gulp.watch('src/less/**/*.less', gulp.parallel('less'));
     // gulp.watch('src/scss/**/*.scss', ['scss']);
 
-    gulp.watch('src/js/**/*.js', ['copy:js']);
-    gulp.watch('src/libs/**/*.*', ['copy:libs']);
-    gulp.watch('src/img/**/*.*', ['copy:img']);
+    gulp.watch('src/js/**/*.js', gulp.parallel('copy:js'));
+    gulp.watch('src/libs/**/*.*', gulp.parallel('copy:libs'));
+    gulp.watch('src/img/**/*', gulp.parallel('copy:img'));
 });
 
 gulp.task('copy:js', function() {
@@ -42,7 +42,7 @@ gulp.task('copy:libs', function() {
 });
 
 gulp.task('copy:img', function() {
-    return gulp.src('src/img/**/*.*')
+    return gulp.src('src/img/**/*')
     	.pipe(gulp.dest('./build/img'))
 		.pipe(browserSync.stream());
 });
@@ -109,12 +109,13 @@ gulp.task('pug', function() {
 
 // main.less==plumber()===sourcemaps.init====less→css======autoprefixer()====sourcemaps.write====→css/main.css====browserSync.stream
 
-gulp.task('default', function(callback){
-	runSequence(
-		'clean:build',
-		['less', 'pug', 'copy:js', 'copy:libs', 'copy:img' ],
-		'server',
-		callback
-	)
-});
+// gulp.task('default', function(callback){
+// 	runSequence(
+// 		'clean:build',
+// 		['less', 'pug', 'copy:js', 'copy:libs', 'copy:img' ],
+// 		'server',
+// 		callback
+// 	)
+// });
 
+gulp.task('default', gulp.series('clean:build', 'less', 'pug', 'copy:js', 'copy:libs', 'copy:img', 'server'));
